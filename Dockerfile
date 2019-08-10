@@ -10,7 +10,13 @@ ENV HSQLDB_VERSION=2.5.0 \
     HSQLDB_DATABASE_ALIAS= \
     HSQLDB_DATABASE_HOST= \
     HSQLDB_USER= \
-    HSQLDB_PASSWORD= 
+    HSQLDB_PASSWORD= \
+    CONTAINER_UID=0 \
+    CONTAINER_GID=0
+
+# Create User
+RUN addgroup -g $CONTAINER_GID user && \
+    adduser -u $CONTAINER_UID -G user -h /home/user -s /bin/bash -S user
 
 # Install Tooling
 RUN yum install -y wget
@@ -20,7 +26,8 @@ RUN mkdir -p /opt/database && \
     mkdir -p /opt/hsqldb && \
     mkdir -p /scripts && \
     wget -O /opt/hsqldb/hsqldb.jar http://central.maven.org/maven2/org/hsqldb/hsqldb/${HSQLDB_VERSION}/hsqldb-${HSQLDB_VERSION}.jar && \
-    wget -O /opt/hsqldb/sqltool.jar http://central.maven.org/maven2/org/hsqldb/sqltool/${HSQLDB_VERSION}/sqltool-${HSQLDB_VERSION}.jar
+    wget -O /opt/hsqldb/sqltool.jar http://central.maven.org/maven2/org/hsqldb/sqltool/${HSQLDB_VERSION}/sqltool-${HSQLDB_VERSION}.jar \
+    chown -R $CONTAINER_UID:$CONTAINER_GID /opt/hsqldb /opt/database /scripts
 
 # Clean caches and tmps
 RUN rm -rf /var/cache/apk/* && \
@@ -30,6 +37,7 @@ RUN rm -rf /var/cache/apk/* && \
 VOLUME ["/opt/database","/scripts"]
 EXPOSE 9001
 
+USER user
 WORKDIR /scripts
 COPY imagescripts/docker-entrypoint.sh /opt/hsqldb/docker-entrypoint.sh
 ENTRYPOINT ["/opt/hsqldb/docker-entrypoint.sh"]
