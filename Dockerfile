@@ -1,4 +1,4 @@
-FROM openjdk:11-slim
+FROM openjdk:12.0.2-oracle
 
 # Image Environment Variables
 ENV HSQLDB_VERSION=2.5.0 \
@@ -13,9 +13,7 @@ ENV HSQLDB_VERSION=2.5.0 \
     HSQLDB_PASSWORD= 
 
 # Install Tooling
-RUN apk add --update \
-      ca-certificates \
-      wget
+RUN yum install -y wget
       
 # Install HSQLDB
 RUN mkdir -p /opt/database && \
@@ -23,11 +21,6 @@ RUN mkdir -p /opt/database && \
     mkdir -p /scripts && \
     wget -O /opt/hsqldb/hsqldb.jar http://central.maven.org/maven2/org/hsqldb/hsqldb/${HSQLDB_VERSION}/hsqldb-${HSQLDB_VERSION}.jar && \
     wget -O /opt/hsqldb/sqltool.jar http://central.maven.org/maven2/org/hsqldb/sqltool/${HSQLDB_VERSION}/sqltool-${HSQLDB_VERSION}.jar
-
-# Remove obsolete packages
-RUN apk del \
-      ca-certificates \
-      wget
 
 # Clean caches and tmps
 RUN rm -rf /var/cache/apk/* && \
