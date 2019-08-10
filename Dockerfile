@@ -18,13 +18,13 @@ RUN yum install -y wget
 # Install HSQLDB
 RUN mkdir -p /opt/database && \
     mkdir -p /opt/hsqldb && \
+    chmod -R 777 /opt/database /opt/hsqldb && \
     mkdir -p /scripts && \
     wget -O /opt/hsqldb/hsqldb.jar http://central.maven.org/maven2/org/hsqldb/hsqldb/${HSQLDB_VERSION}/hsqldb-${HSQLDB_VERSION}.jar && \
     wget -O /opt/hsqldb/sqltool.jar http://central.maven.org/maven2/org/hsqldb/sqltool/${HSQLDB_VERSION}/sqltool-${HSQLDB_VERSION}.jar
 
 # Clean caches and tmps
-RUN rm -rf /var/cache/apk/* && \
-    rm -rf /tmp/* && \
+RUN rm -rf /tmp/* && \
     rm -rf /var/log/*
 
 VOLUME ["/opt/database","/scripts"]
