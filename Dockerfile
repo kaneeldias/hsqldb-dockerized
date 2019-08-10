@@ -1,4 +1,4 @@
-FROM openjdk:12.0.2
+FROM openjdk:11-slim
 
 # Image Environment Variables
 ENV HSQLDB_VERSION=2.5.0 \
