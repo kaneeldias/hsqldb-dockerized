@@ -1,8 +1,7 @@
-FROM blacklabelops/java:openjre8
-MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
+FROM openjdk:12.0.2
 
 # Image Environment Variables
-ENV HSQLDB_VERSION=2.4.0 \
+ENV HSQLDB_VERSION=2.5.0 \
     JAVA_VM_PARAMETERS= \
     HSQLDB_TRACE= \
     HSQLDB_SILENT= \
@@ -11,13 +10,13 @@ ENV HSQLDB_VERSION=2.4.0 \
     HSQLDB_DATABASE_ALIAS= \
     HSQLDB_DATABASE_HOST= \
     HSQLDB_USER= \
-    HSQLDB_PASSWORD=
+    HSQLDB_PASSWORD= \
+    CONTAINER_USER=root \
+    CONTAINER_UID=0 \
+    CONTAINER_GROUP=root \
+    CONTAINER_GID=0
 
-RUN export CONTAINER_USER=hsql && \
-    export CONTAINER_UID=1000 && \
-    export CONTAINER_GROUP=hsql && \
-    export CONTAINER_GID=1000 && \
-    # Add user
+RUN # Add user
     addgroup -g $CONTAINER_GID $CONTAINER_GROUP && \
     adduser -u $CONTAINER_UID -G $CONTAINER_GROUP -h /home/$CONTAINER_USER -s /bin/bash -S $CONTAINER_USER && \
     # Install tooling
