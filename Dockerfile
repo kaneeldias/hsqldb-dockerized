@@ -15,8 +15,8 @@ ENV HSQLDB_VERSION=2.5.0 \
     CONTAINER_GID=0
 
 # Create User
-RUN addgroup -g $CONTAINER_GID user && \
-    adduser -u $CONTAINER_UID -G user -h /home/user -s /bin/bash -S user
+RUN groupadd -g $CONTAINER_GID USER && \
+    useradd --uid $CONTAINER_UID --gid $CONTAINER_GID --home /home/user --shell /bin/bash --system user
 
 # Install Tooling
 RUN yum install -y wget
