@@ -20,7 +20,7 @@ RUN mkdir -p /opt/database && \
     mkdir -p /opt/hsqldb && \
     mkdir -p /scripts && \
     wget -O /opt/hsqldb/hsqldb.jar http://central.maven.org/maven2/org/hsqldb/hsqldb/${HSQLDB_VERSION}/hsqldb-${HSQLDB_VERSION}.jar && \
-    wget -O /opt/hsqldb/sqltool.jar http://central.maven.org/maven2/org/hsqldb/sqltool/${HSQLDB_VERSION}/sqltool-${HSQLDB_VERSION}.jar \
+    wget -O /opt/hsqldb/sqltool.jar http://central.maven.org/maven2/org/hsqldb/sqltool/${HSQLDB_VERSION}/sqltool-${HSQLDB_VERSION}.jar
 
 # Clean caches and tmps
 RUN rm -rf /var/cache/apk/* && \
