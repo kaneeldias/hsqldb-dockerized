@@ -1,12 +1,14 @@
 # HSQLDB in a Docker Image
-Exactly what it says on the tin. Useful in Spring and other Java applications. This image uses JDK 12 on Oracle Linux.
+Docker image for HSQLDB that works on both x86 and ARM architectures.
 
-## Release: mitchtalmadge/hsqldb:latest
+## Forked from [MitchTalmadge](https://github.com/MitchTalmadge/hsqldb-dockerized.git)
+
+## Release: kaneeldias/hsqldb:latest
 
 # Quick Start
 
 ```
-$ docker run -d -p 9001:9001 --name hsqldb mitchtalmadge/hsqldb
+$ docker run -d -p 9001:9001 --name hsqldb kaneeldias/hsqldb
 ```
 
 Connection Details: 
@@ -29,7 +31,7 @@ $ docker run -d --name hsqldb \
 	-e "HSQLDB_USER=sa" \
   	-e "HSQLDB_PASSWORD=password" \
 	-p 9001:9001 \
-	mitchtalmadge/hsqldb
+	kaneeldias/hsqldb
 ```
 
 ## Default Credentials
@@ -50,7 +52,7 @@ Example:
 $ docker run -d --name hsqldb \
 	-e "HSQLDB_DATABASE_ALIAS=example" \
 	-p 9001:9001 \
-	mitchtalmadge/hsqldb
+	kaneeldias/hsqldb
 ```
 
 > The correct JDBC URL is now: jdbc:hsqldb:hsql://localhost/example
@@ -65,7 +67,7 @@ Example:
 $ docker run -d --name hsqldb \
 	-e "HSQLDB_DATABASE_NAME=hsqldb" \
 	-p 9001:9001 \
-	mitchtalmadge/hsqldb
+	kaneeldias/hsqldb
 ```
 
 > Database hsqldb will be available in folder /opt/database
@@ -80,7 +82,7 @@ Example:
 $ docker run -d --name hsqldb \
 	-v ./database:/opt/database \
 	-p 9001:9001 \
-	mitchtalmadge/hsqldb
+	kaneeldias/hsqldb
 ```
 
 # Additional HSQLDB Parameters
@@ -99,7 +101,7 @@ $ docker run -d --name hsqldb \
   -e "HSQLDB_SILENT=true" \
   -e "HSQLDB_REMOTE=false" \
   -p 9001:9001 \
-  mitchtalmadge/hsqldb
+  kaneeldias/hsqldb
 ```
 
 # Java-VM Parameters
@@ -110,7 +112,7 @@ You can define start up parameters for the Java Virtual Machine, e.g. setting th
 $ docker run -d --name hsqldb \
 	-e "JAVA_VM_PARAMETERS=-Xmx512m -Xms256m" \
 	-p 9001:9001 \
-	mitchtalmadge/hsqldb
+	kaneeldias/hsqldb
 ```
 
 # References
